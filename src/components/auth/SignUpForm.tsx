@@ -6,13 +6,15 @@ import { Label } from "@/components/ui/label";
 import { useNavigate, Link } from "react-router-dom";
 import AuthLayout from "./AuthLayout";
 import { useToast } from "@/components/ui/use-toast";
+import GoogleSignInButton from "./GoogleSignInButton";
 
 export default function SignUpForm() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [fullName, setFullName] = useState("");
   const [error, setError] = useState("");
-  const { signUp } = useAuth();
+  const [isGoogleLoading, setIsGoogleLoading] = useState(false);
+  const { signUp, signUpWithGoogle } = useAuth();
   const navigate = useNavigate();
   const { toast } = useToast();
 
@@ -26,8 +28,32 @@ export default function SignUpForm() {
         duration: 5000,
       });
       navigate("/login");
-    } catch (error) {
-      setError("Error creating account");
+    } catch (error: any) {
+      console.error("Signup error:", error);
+      if (error.message) {
+        setError(error.message);
+      } else if (error.error_description) {
+        setError(error.error_description);
+      } else {
+        setError("Error creating account. Please try again.");
+      }
+    }
+  };
+
+  const handleGoogleSignUp = async () => {
+    setIsGoogleLoading(true);
+    try {
+      await signUpWithGoogle();
+    } catch (error: any) {
+      console.error("Google signup error:", error);
+      if (error.message) {
+        setError(error.message);
+      } else if (error.error_description) {
+        setError(error.error_description);
+      } else {
+        setError("Failed to sign up with Google");
+      }
+      setIsGoogleLoading(false);
     }
   };
 
@@ -80,6 +106,20 @@ export default function SignUpForm() {
             Create account
           </Button>
           
+          <div className="relative">
+            <div className="absolute inset-0 flex items-center">
+              <span className="w-full border-t border-gray-300" />
+            </div>
+            <div className="relative flex justify-center text-xs uppercase">
+              <span className="bg-white px-2 text-gray-500">Or continue with</span>
+            </div>
+          </div>
+
+          <GoogleSignInButton
+            onClick={handleGoogleSignUp}
+            isLoading={isGoogleLoading}
+            variant="signup"
+          />
           
           <div className="text-xs text-center text-gray-500 mt-6">
             By creating an account, you agree to our{" "}

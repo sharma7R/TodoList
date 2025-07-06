@@ -3,7 +3,8 @@ import { Navigate, Route, Routes, useRoutes } from "react-router-dom";
 import routes from "tempo-routes";
 import LoginForm from "./components/auth/LoginForm";
 import SignUpForm from "./components/auth/SignUpForm";
-import Dashboard from "./components/pages/dashboard";
+import AuthCallback from "./components/auth/AuthCallback";
+import HiPage from "./components/pages/hi";
 import Success from "./components/pages/success";
 import Home from "./components/pages/home";
 import { AuthProvider, useAuth } from "../supabase/auth";
@@ -31,11 +32,12 @@ function AppRoutes() {
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<LoginForm />} />
         <Route path="/signup" element={<SignUpForm />} />
+        <Route path="/auth/callback" element={<AuthCallback />} />
         <Route
-          path="/dashboard"
+          path="/hi"
           element={
             <PrivateRoute>
-              <Dashboard />
+              <HiPage />
             </PrivateRoute>
           }
         />

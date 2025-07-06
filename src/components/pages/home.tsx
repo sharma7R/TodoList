@@ -30,12 +30,12 @@ export default function LandingPage() {
           <div className="flex items-center space-x-4">
             {user ? (
               <div className="flex items-center gap-4">
-                <Link to="/dashboard">
+                <Link to="/hi">
                   <Button
                     variant="ghost"
                     className="text-sm font-light hover:text-gray-500"
                   >
-                    Dashboard
+                    Hi Page
                   </Button>
                 </Link>
                 <DropdownMenu>
@@ -114,10 +114,10 @@ export default function LandingPage() {
           <div className="flex justify-center space-x-6 text-xl text-blue-600">
             {user ? (
               <Link
-                to="/dashboard"
+                to="/hi"
                 className="flex items-center hover:underline"
               >
-                Go to Dashboard <ChevronRight className="h-4 w-4" />
+                Say hi! <ChevronRight className="h-4 w-4" />
               </Link>
             ) : (
               <>
@@ -143,20 +143,6 @@ export default function LandingPage() {
           <h3 className="text-2xl font-medium text-gray-500 mb-4">
             Powerful features to manage your tasks efficiently
           </h3>
-          <div className="flex justify-center space-x-6 text-xl text-blue-600">
-            {user ? (
-              <Link
-                to="/dashboard"
-                className="flex items-center hover:underline"
-              >
-                Try it now <ChevronRight className="h-4 w-4" />
-              </Link>
-            ) : (
-              <Link to="/signup" className="flex items-center hover:underline">
-                Get started <ChevronRight className="h-4 w-4" />
-              </Link>
-            )}
-          </div>
           <div className="mt-8 max-w-6xl mx-auto px-4 grid grid-cols-1 md:grid-cols-3 gap-6">
             <div className="bg-white p-8 rounded-2xl shadow-sm text-left">
               <div className="h-12 w-12 bg-blue-100 rounded-full flex items-center justify-center mb-4">
@@ -231,131 +217,7 @@ export default function LandingPage() {
         </section>
 
         {/* Grid section for other features */}
-        <section className="grid grid-cols-1 md:grid-cols-2 gap-3 p-3">
-          <div className="bg-[#f5f5f7] rounded-3xl p-12 text-center">
-            <h2 className="text-4xl font-semibold tracking-tight mb-1">
-              Secure & Personal
-            </h2>
-            <h3 className="text-xl font-medium text-gray-500 mb-4">
-              Your tasks, protected and private
-            </h3>
-            <div className="flex justify-center space-x-6 text-lg text-blue-600">
-              {user ? (
-                <Link
-                  to="/dashboard"
-                  className="flex items-center hover:underline"
-                >
-                  View your tasks <ChevronRight className="h-4 w-4" />
-                </Link>
-              ) : (
-                <>
-                  <Link
-                    to="/signup"
-                    className="flex items-center hover:underline"
-                  >
-                    Create account <ChevronRight className="h-4 w-4" />
-                  </Link>
-                  <Link
-                    to="/login"
-                    className="flex items-center hover:underline"
-                  >
-                    Sign in <ChevronRight className="h-4 w-4" />
-                  </Link>
-                </>
-              )}
-            </div>
-            <div className="mt-4 bg-white p-6 rounded-xl shadow-sm max-w-sm mx-auto">
-              <div className="space-y-4">
-                <div className="h-10 bg-gray-100 rounded-md w-full flex items-center px-3">
-                  <span className="text-sm text-gray-500">Email address</span>
-                </div>
-                <div className="h-10 bg-gray-100 rounded-md w-full flex items-center px-3">
-                  <span className="text-sm text-gray-500">Password</span>
-                </div>
-                <div className="h-10 bg-black rounded-md w-full flex items-center justify-center">
-                  <span className="text-sm text-white font-medium">
-                    Sign in
-                  </span>
-                </div>
-                <div className="flex items-center justify-center space-x-2">
-                  <div className="h-px bg-gray-300 flex-grow"></div>
-                  <span className="text-xs text-gray-500">OR</span>
-                  <div className="h-px bg-gray-300 flex-grow"></div>
-                </div>
-                <div className="h-10 bg-white border border-gray-300 rounded-md w-full flex items-center justify-center">
-                  <span className="text-sm text-gray-700 font-medium">
-                    Create account
-                  </span>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div className="bg-[#f5f5f7] rounded-3xl p-12 text-center">
-            <h2 className="text-4xl font-semibold tracking-tight mb-1">
-              Always Synced
-            </h2>
-            <h3 className="text-xl font-medium text-gray-500 mb-4">
-              Access your tasks anywhere
-            </h3>
-            <div className="flex justify-center space-x-6 text-lg text-blue-600">
-              {user ? (
-                <Link
-                  to="/dashboard"
-                  className="flex items-center hover:underline"
-                >
-                  Go to dashboard <ChevronRight className="h-4 w-4" />
-                </Link>
-              ) : (
-                <Link
-                  to="/signup"
-                  className="flex items-center hover:underline"
-                >
-                  Get started <ChevronRight className="h-4 w-4" />
-                </Link>
-              )}
-            </div>
-            <div className="mt-4 bg-white p-6 rounded-xl shadow-sm max-w-sm mx-auto text-left">
-              <div className="space-y-3">
-                <div className="flex items-center space-x-3">
-                  <div className="w-4 h-4 border-2 border-gray-300 rounded"></div>
-                  <span className="text-sm text-gray-700">
-                    Complete project proposal
-                  </span>
-                </div>
-                <div className="flex items-center space-x-3">
-                  <div className="w-4 h-4 bg-green-500 rounded flex items-center justify-center">
-                    <svg
-                      className="w-2 h-2 text-white"
-                      fill="currentColor"
-                      viewBox="0 0 20 20"
-                    >
-                      <path
-                        fillRule="evenodd"
-                        d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                        clipRule="evenodd"
-                      />
-                    </svg>
-                  </div>
-                  <span className="text-sm text-gray-500 line-through">
-                    Review team feedback
-                  </span>
-                </div>
-                <div className="flex items-center space-x-3">
-                  <div className="w-4 h-4 border-2 border-gray-300 rounded"></div>
-                  <span className="text-sm text-gray-700">
-                    Schedule client meeting
-                  </span>
-                </div>
-                <div className="flex items-center space-x-3">
-                  <div className="w-4 h-4 border-2 border-gray-300 rounded"></div>
-                  <span className="text-sm text-gray-700">
-                    Update website content
-                  </span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
+        {/* The Secure & Personal section has been removed as requested. */}
       </main>
 
       {/* Footer */}
@@ -373,8 +235,8 @@ export default function LandingPage() {
                   </Link>
                 </li>
                 <li>
-                  <Link to="/dashboard" className="hover:underline">
-                    Dashboard
+                  <Link to="/hi" className="hover:underline">
+                    Hi Page
                   </Link>
                 </li>
                 <li>
@@ -397,8 +259,8 @@ export default function LandingPage() {
                 {user ? (
                   <>
                     <li>
-                      <Link to="/dashboard" className="hover:underline">
-                        Dashboard
+                      <Link to="/hi" className="hover:underline">
+                        Hi Page
                       </Link>
                     </li>
                     <li>
