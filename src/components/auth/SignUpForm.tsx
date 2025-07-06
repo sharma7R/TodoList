@@ -85,16 +85,6 @@ export default function SignUpForm() {
           >
             Create account
           </Button>
-          <div className="text-xs text-center text-gray-500 mt-6">
-            By creating an account, you agree to our{" "}
-            <Link to="/" className="text-blue-600 hover:underline">
-              Terms of Service
-            </Link>{" "}
-            and{" "}
-            <Link to="/" className="text-blue-600 hover:underline">
-              Privacy Policy
-            </Link>
-          </div>
           <div className="text-sm text-center text-gray-600 mt-6">
             Already have an account?{" "}
             <Link to="/login" className="text-blue-600 hover:underline font-medium">

@@ -25,7 +25,7 @@ export default function LandingPage() {
       <header className="fixed top-0 z-50 w-full bg-[rgba(255,255,255,0.8)] backdrop-blur-md border-b border-[#f5f5f7]/30">
         <div className="flex h-12 items-center justify-between px-6">
           <span className="font-medium text-xl">TodoList</span>
-          {user && (
+          {user ? (
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <Avatar className="h-8 w-8 ml-auto hover:cursor-pointer shadow-none bg-transparent">
@@ -46,6 +46,10 @@ export default function LandingPage() {
                 </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
+          ) : (
+            <a href="/login" className="flex items-center h-full">
+              <button className="px-4 py-2 rounded-full bg-black text-white hover:bg-gray-800 text-sm font-medium flex items-center h-8 mt-2">Sign In</button>
+            </a>
           )}
         </div>
       </header>
