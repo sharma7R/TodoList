@@ -10,27 +10,33 @@ export default function AuthCallback() {
   useEffect(() => {
     const handleAuthCallback = async () => {
       try {
+        // Wait for Supabase to process the OAuth callback and set the session
         const { data, error } = await supabase.auth.getSession();
-        
         if (error) {
           setError("Authentication failed. Please try again.");
           setTimeout(() => navigate("/login"), 3000);
           return;
         }
-
+        // Wait a moment for session propagation (sometimes needed)
         if (data.session) {
-          // Successfully authenticated, redirect to hi page
           navigate("/hi");
         } else {
-          // No session found, redirect to login
-          navigate("/login");
+          // Try to refresh session (optional, for edge cases)
+          setTimeout(async () => {
+            const { data: refreshed } = await supabase.auth.getSession();
+            if (refreshed.session) {
+              navigate("/hi");
+            } else {
+              setError("No session found after authentication. Please try logging in again.");
+              setTimeout(() => navigate("/login"), 3000);
+            }
+          }, 1000);
         }
       } catch (err) {
         setError("An unexpected error occurred. Please try again.");
         setTimeout(() => navigate("/login"), 3000);
       }
     };
-
     handleAuthCallback();
   }, [navigate]);
 
