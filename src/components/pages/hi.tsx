@@ -4,6 +4,8 @@ import { Input } from "@/components/ui/input";
 import { useNavigate } from "react-router-dom";
 import { supabase } from "../../../supabase/supabase";
 import { useAuth } from "../../../supabase/auth";
+import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
+import { DropdownMenu, DropdownMenuTrigger, DropdownMenuContent, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuItem } from "@/components/ui/dropdown-menu";
 
 interface Todo {
   id: string;
@@ -13,7 +15,7 @@ interface Todo {
 }
 
 export default function TodoDashboard() {
-  const { user, loading: authLoading } = useAuth();
+  const { user, loading: authLoading, signOut } = useAuth();
   const [todos, setTodos] = useState<Todo[]>([]);
   const [input, setInput] = useState("");
   const [editInput, setEditInput] = useState("");
@@ -105,12 +107,63 @@ export default function TodoDashboard() {
 
   return (
     <div className="min-h-screen bg-gray-50 flex flex-col">
-      {/* Header */}
-      <header className="sticky top-0 z-10 bg-white border-b border-gray-200 flex items-center justify-between px-6 h-16 shadow-sm">
-        <span className="font-bold text-xl tracking-tight text-black">TodoList</span>
-        <Button variant="outline" onClick={() => navigate("/")}>Go Home</Button>
+      {/* Apple-style navigation */}
+      <header className="fixed top-0 z-50 w-full bg-[rgba(255,255,255,0.8)] backdrop-blur-md border-b border-[#f5f5f7]/30">
+        <div className="flex h-12 items-center justify-between px-6">
+          {/* Left: TodoList text */}
+          <div className="flex items-center">
+            <a href="/" className="font-medium text-xl">
+              TodoList
+            </a>
+          </div>
+          {/* Right: Avatar or auth buttons */}
+          <div className="flex items-center space-x-4 ml-auto">
+            {user ? (
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <Avatar className="h-8 w-8 hover:cursor-pointer">
+                    <AvatarImage
+                      src={`https://api.dicebear.com/7.x/avataaars/svg?seed=${user.email}`}
+                      alt={user.email || ""}
+                    />
+                    <AvatarFallback>
+                      {user.email?.[0].toUpperCase()}
+                    </AvatarFallback>
+                  </Avatar>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent
+                  align="end"
+                  className="rounded-xl border-none shadow-lg"
+                >
+                  <DropdownMenuLabel className="text-xs text-gray-500">
+                    {user.email}
+                  </DropdownMenuLabel>
+                  <DropdownMenuSeparator />
+                  <DropdownMenuItem className="cursor-pointer" onSelect={() => signOut()}>
+                    Log out
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
+            ) : (
+              <>
+                <a href="/login">
+                  <Button
+                    variant="ghost"
+                    className="text-sm font-light hover:text-gray-500"
+                  >
+                    Sign In
+                  </Button>
+                </a>
+                <a href="/signup">
+                  <Button className="rounded-full bg-black text-white hover:bg-gray-800 text-sm px-4">
+                    Get Started
+                  </Button>
+                </a>
+              </>
+            )}
+          </div>
+        </div>
       </header>
-      {/* Main content */}
       <main className="flex-1 flex items-center justify-center p-4">
         <div className="bg-white rounded-2xl shadow-lg p-8 w-full max-w-md mx-auto">
           <h1 className="text-3xl font-bold mb-6 text-center">Todo Dashboard</h1>

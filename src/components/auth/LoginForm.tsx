@@ -5,14 +5,12 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useNavigate, Link } from "react-router-dom";
 import AuthLayout from "./AuthLayout";
-import GoogleSignInButton from "./GoogleSignInButton";
 
 export default function LoginForm() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
-  const [isGoogleLoading, setIsGoogleLoading] = useState(false);
-  const { signIn, signInWithGoogle } = useAuth();
+  const { signIn } = useAuth();
   const navigate = useNavigate();
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -29,23 +27,6 @@ export default function LoginForm() {
       } else {
         setError("Invalid email or password");
       }
-    }
-  };
-
-  const handleGoogleSignIn = async () => {
-    setIsGoogleLoading(true);
-    try {
-      await signInWithGoogle();
-    } catch (error: any) {
-      console.error("Google signin error:", error);
-      if (error.message) {
-        setError(error.message);
-      } else if (error.error_description) {
-        setError(error.error_description);
-      } else {
-        setError("Failed to sign in with Google");
-      }
-      setIsGoogleLoading(false);
     }
   };
 
@@ -89,22 +70,6 @@ export default function LoginForm() {
           >
             Sign in
           </Button>
-          
-          <div className="relative">
-            <div className="absolute inset-0 flex items-center">
-              <span className="w-full border-t border-gray-300" />
-            </div>
-            <div className="relative flex justify-center text-xs uppercase">
-              <span className="bg-white px-2 text-gray-500">Or continue with</span>
-            </div>
-          </div>
-
-          <GoogleSignInButton
-            onClick={handleGoogleSignIn}
-            isLoading={isGoogleLoading}
-            variant="signin"
-          />
-      
           <div className="text-sm text-center text-gray-600 mt-6">
             Don't have an account?{" "}
             <Link to="/signup" className="text-blue-600 hover:underline font-medium">
